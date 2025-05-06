@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git-Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/gou8m/Terraform-CI-CD.git'
+                git branch: 'main', url: 'https://github.com/gou8m/terraform-ci-cd.git'
             }
         }
         stage('Terraform-Init') {
