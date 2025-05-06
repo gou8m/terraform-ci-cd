@@ -1,0 +1,72 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'action', choices: ['apply', 'destroy'], description: 'Terraform Action')
+    }
+
+    stages {
+        stage('Git-Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/gou8m/Terraform-CI-CD.git'
+            }
+        }
+        stage('Terraform-Init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('Terraform-Plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+        stage('Terraform-Apply/Destroy') {
+            steps {
+                sh "terraform ${params.action} -auto-approve"
+            }
+        }
+    }
+}
+
+
+-----------------------------------------------------------------------------
+
+
+
+pipeline {
+    agent any
+    
+    parameters {
+        choice(name:'action', choices:['apply', 'destroy'], description: 'Terraform Action')
+    }
+
+    stages {
+        stage('Git-Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/gou8m/Terraform.git'
+            }
+        }
+        stage('Terraform-Init') {
+            steps {
+                dir('Day-10-User-Data') {
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform-Plan') {
+            steps {
+                dir('Day-10-User-Data') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('Terraform-Apply/Destroy') {
+            steps {
+                dir('Day-10-User-Data') {
+                    sh "terraform ${params.action} -auto-approve"
+                }
+            }
+        }
+    }
+}
