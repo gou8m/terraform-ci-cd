@@ -18,7 +18,7 @@
 
 
 
-## ✅ Connect to Server and Install Java Dependency for Jenkins
+## ✅ Connect to Server and Install Java
 
 ```bash
 sudo dnf install java-17-amazon-corretto -y
